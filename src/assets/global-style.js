@@ -20,7 +20,8 @@ const noWrap = () => {
 }
 
 const defaultStyle = {
-  'theme-color': '#d44439',
+  // 'theme-color': '#d44439',
+  'theme-color': 'rgba(0, 0, 0, 0.1)',
   'theme-color-shadow': 'rgba (212, 68, 57, .5)',
   'font-color-light': '#f1f1f1',
   'font-color-desc': '#2E3030',
