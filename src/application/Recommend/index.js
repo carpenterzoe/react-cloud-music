@@ -1,7 +1,8 @@
-//src/appliction/Recommend/index.js
 import React from 'react';
 import Slider from '@/components/slider';
 import RecommendList from '@/components/list';
+import { Content } from './style'
+import Scroll from '@/baseUI/scroll';
 
 function Recommend () {
 
@@ -19,10 +20,16 @@ function Recommend () {
   });
 
   return (
-    <div>
-      <Slider bannerList={bannerList}></Slider>
-      <RecommendList recommendList={recommendList}></RecommendList> 
-    </div>
+    // Content 容器 固定高度
+    // better-scroll 原理，容器元素高度固定，当子元素高度超过容器元素高度时，通过 transfrom 动画产生滑动效果
+    <Content>
+      <Scroll className="list">
+        <div>
+          <Slider bannerList={bannerList}></Slider>
+          <RecommendList recommendList={recommendList}></RecommendList>
+        </div>
+      </Scroll>
+    </Content> 
   )
 }
 

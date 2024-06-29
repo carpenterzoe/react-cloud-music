@@ -10,10 +10,10 @@ export const SliderContainer = styled.div`
   background: white;
   .before {
     position: absolute;
-    top: 0;
-    height: 60%;
     width: 100%;
     background: ${style["theme-color"]};
+    top: -420px;
+    height: 400px;
   }
   .swiper {
     position: relative;
