@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { forceCheck } from 'react-lazyload';
+
 import Slider from '@/components/slider';
 import RecommendList from '@/components/list';
 import { Content } from './style'
@@ -12,9 +14,14 @@ function Recommend (props){
   const { getBannerDataDispatch, getRecommendListDataDispatch } = props;
 
   useEffect (() => {
-    getBannerDataDispatch ();
-    getRecommendListDataDispatch ();
-    //eslint-disable-next-line
+    // 如果页面有数据，则不发请求
+    //immutable 数据结构中长度属性 size
+    if (!bannerList.size){
+      getBannerDataDispatch ();
+    }
+    if (!recommendList.size){
+      getRecommendListDataDispatch ();
+    }
   }, []);
 
   const bannerListJS = bannerList ? bannerList.toJS () : [];
@@ -24,7 +31,7 @@ function Recommend (props){
     // Content 容器 固定高度
     // better-scroll 原理，容器元素高度固定，当子元素高度超过容器元素高度时，通过 transfrom 动画产生滑动效果
     <Content>
-      <Scroll className="list">
+      <Scroll className="list" onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerListJS}></Slider>
           <RecommendList recommendList={recommendListJS}></RecommendList>
