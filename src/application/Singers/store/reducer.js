@@ -9,10 +9,10 @@ const defaultState = fromJS({
   pageCount: 0            //这里是当前页数，我们即将实现分页功能
 });
 
-
 const singerReducer =  (state = defaultState, action) => {
   switch(action.type) {
     case actionTypes.CHANGE_SINGER_LIST:
+      // immutable数据结构，set方法设置新状态，取状态用get方法
       return state.set('singerList', action.data);
     case actionTypes.CHANGE_PAGE_COUNT:
       return state.set('pageCount', action.data);
