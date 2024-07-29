@@ -42,11 +42,13 @@ function Singers(props) {
 
   let handleUpdateAlpha = (val) => {
     setAlpha(val);
+    updateDispatch(category, val)
   };
 
-  let handleUpdateCatetory = (val) => {
-    setCategory(val);
-  };
+  // let handleUpdateCatetory = (val) => {
+  //   setCategory(val);
+  //   updateDispatch(val, alpha)
+  // };
 
   // 渲染函数，返回歌手列表
   const renderSingerList = () => {
@@ -75,12 +77,12 @@ function Singers(props) {
   return (
     <div>
       <NavContainer>
-        <Horizen
+        {/* <Horizen
           list={categoryTypes}
           title={"分类 (默认热门):"}
           handleClick={(val) => handleUpdateCatetory(val)}
           oldVal={category}
-        ></Horizen>
+        ></Horizen> */}
         <Horizen
           list={alphaTypes}
           title={"首字母:"}
