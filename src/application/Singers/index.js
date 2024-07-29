@@ -3,6 +3,8 @@ import Horizen from "@/baseUI/horizen-item";
 import Scroll from "@/baseUI/scroll";
 import { categoryTypes, alphaTypes } from "@/api/config";
 import { NavContainer, ListContainer, List, ListItem } from "./style";
+import Loading from '@/baseUI/loading';
+import LazyLoad, { forceCheck } from 'react-lazyload';
 
 import {
   getSingerList,
@@ -45,10 +47,13 @@ function Singers(props) {
     updateDispatch(category, val)
   };
 
-  // let handleUpdateCatetory = (val) => {
-  //   setCategory(val);
-  //   updateDispatch(val, alpha)
-  // };
+  const handlePullUp = () => {
+    pullUpRefreshDispatch (category, alpha, category === '', pageCount);
+  };
+  
+  const handlePullDown = () => {
+    pullDownRefreshDispatch (category, alpha);
+  };
 
   // 渲染函数，返回歌手列表
   const renderSingerList = () => {
@@ -59,12 +64,9 @@ function Singers(props) {
           return (
             <ListItem key={item.accountId + "" + index}>
               <div className="img_wrapper">
-                <img
-                  src={`${item.picUrl}?param=300x300`}
-                  width="100%"
-                  height="100%"
-                  alt="music"
-                />
+                <LazyLoad placeholder={<img width="100%" height="100%" src={require('@/assets/img/music.png')} alt="music" />}>
+                  <img src={`${item.picUrl}?param=300x300`} width="100%" height="100%" alt="music" />
+                </LazyLoad>
               </div>
               <span className="name">{item.name}</span>
             </ListItem>
@@ -91,7 +93,16 @@ function Singers(props) {
         ></Horizen>
       </NavContainer>
       <ListContainer>
-        <Scroll>{renderSingerList()}</Scroll>
+        <Loading show={enterLoading}></Loading>
+
+        <Scroll
+          pullUp={ handlePullUp }
+          pullDown = { handlePullDown }
+          pullUpLoading = { pullUpLoading }
+          pullDownLoading = { pullDownLoading }
+        >
+          { renderSingerList () }
+        </Scroll>
       </ListContainer>
     </div>
   );
